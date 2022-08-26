@@ -1,0 +1,13 @@
+version: "3"
+services:
+  express:
+    build: .
+    image: avrnikh/express:1.0.0
+    ports:
+      - "${PORT}:3001"
+    environment:
+      - PORT=${PORT}
+      - HOST=${HOST}
+  
+     
+     

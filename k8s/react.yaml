@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  template:
+    metadata:
+      labels:
+        app: react
+    spec:
+      containers:
+        - name: react
+          image: avrnikh/react:1.0.0
+          resources:
+            limits:
+              memory: "500Mi"
+              cpu: "700m"
+          ports:
+            - containerPort: 3000   
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+spec:
+  type: ClusterIP
+  selector:
+    app: react
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+# kubectl apply -f react.yaml
+# minikube ip   [ you well get an ip adress :  192.168.1.106]
+# google chrome tap : http://192.168.1.106 [ change this ip with yours ]
